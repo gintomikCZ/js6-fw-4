@@ -4,7 +4,7 @@
       <TTableRow :items="headers" isHeader />
     </thead>
     <tbody>
-      <TTableRow v-for="rowData in bodyData" :items="rowData" />
+      <TTableRow v-for="(rowData, index) in bodyData" :items="rowData" @clicked="$emit('row-clicked', index)"/>
     </tbody>
     <tfoot v-if="footers.length">
       <TTableRow :items="footers" isHeader />

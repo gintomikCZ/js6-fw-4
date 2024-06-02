@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <h1>employees</h1>
+    <button @click="addNew">add new employee</button>
   </div>
 
   <div class="table-container">
     <TLoading v-if="loading" />
-    <TTable v-else :headers="headers" :bodyData="employeesToDisplay" />
+    <TTable v-else :headers="headers" :bodyData="employeesToDisplay" @row-clicked="onRowClicked"/>
     </div>
 </template>
 
@@ -25,7 +26,6 @@ export default {
     db.get('employees').then(employees => {
       this.employees = employees
       this.loading = false
-      console.log(this.employees)
     })
   },
   data () {
@@ -47,6 +47,14 @@ export default {
             {label:'' + guy.salary, align: 'right'}
           ]
         })
+    }
+  },
+  methods: {
+    addNew () {
+      this.$router.push('/employeeform')
+    },
+    onRowClicked(index) {
+      this.$router.push('/employeeform/' + this.employees[index].id)
     }
   },
   components: { TTable, TLoading }

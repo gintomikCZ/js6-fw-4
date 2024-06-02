@@ -26,6 +26,16 @@ const router = createRouter({
       path: '/employees',
       name: 'employees',
       component: () => import('../pages/EmployeesPage.vue')
+    },
+    {
+      path: '/employeeform',
+      name: 'employeeFormAdd',
+      component: () => import('../pages/EmployeeFormPage.vue')
+    },
+    {
+      path: '/employeeform/:id',
+      name: 'employeeFormEdit',
+      component: () => import('../pages/EmployeeFormPage.vue')
     }
   ]
 })

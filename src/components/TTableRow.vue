@@ -13,7 +13,7 @@
   <tr v-else>
     <td v-for="item in items">{{ item }}</td>
   </tr> -->
-  <tr>
+  <tr @click="$emit('clicked')">
 
     <TTableCell v-for="(item, index) in items" :isHeader="isHeader"
       :label="typeof item === 'string' ? item : item.label"
