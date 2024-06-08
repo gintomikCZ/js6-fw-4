@@ -1,14 +1,17 @@
 <template>
-  <div class="container">
+  <!-- <div class="container">
     <h1>new employee form</h1>
     <TLoading v-if="loading"></TLoading>
     <TForm v-else :formSettings="formSettings" @submited="onSubmited"/>
-  </div>
+  </div> -->
+  <TPage :title="$route.params.id ? 'edit employee' : 'add employee'" :loading="loading">
+    <TForm :formSettings="formSettings" @submited="onSubmited" />
+  </TPage>
 </template>
 
 <script>
 import TForm from '@/components/form/TForm.vue'
-import TLoading from '@/components/TLoading.vue'
+import TPage from '@/components/TPage.vue'
 import db from '@/utils/db.js'
 export default {
   name: 'EmployeeFormPage',
@@ -77,13 +80,7 @@ export default {
       })
     }
   },
-  components: { TForm, TLoading }
+  components: { TForm, TPage }
 }
 
 </script>
-
-<style scoped>
-.container {
-  margin: 2rem;
-}
-</style>

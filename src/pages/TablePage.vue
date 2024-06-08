@@ -1,15 +1,16 @@
 <template>
-  <div class="container">
+  <!-- <div class="container">
     <h1>table</h1>
   </div>
 
   <div class="table-container">
     <TLoading v-if="loading" />
     <TTable v-else :headers="headers" :bodyData="teamsCalculated" />
-  </div>
-  <div class="table-container">
-    <TTable :headers="['fruit']" :bodyData="[['jablko'], ['švestka'], ['banán']]" />
-  </div>
+  </div> -->
+  <TPage title="table" :loading="loading">
+    <button @click="addNew">add new team</button>
+    <TTable :headers="headers" :bodyData="teamsCalculated" @row-clicked="onRowClicked"/>
+  </TPage>
 </template>
 
 <script>
@@ -22,7 +23,7 @@ standing | team city | games played | points | score
 */
 import db from '@/utils/db.js'
 import TTable from '@/components/TTable.vue'
-import TLoading from '@/components/TLoading.vue'
+import TPage from '@/components/TPage.vue'
 export default {
   name: 'TablePage',
   created() {
@@ -58,6 +59,7 @@ export default {
           return acc
         }, [0, 0])
         return {
+          id: team.id,
           team: `${team.team} ${team.city}`,
           games: this.games.reduce((acc, cur) => ([cur.hometeamid, cur.awayteamid].indexOf(team.id) > -1) ? acc + 1 : acc, 0),
           points: this.games.reduce((acc, cur) => {
@@ -98,7 +100,15 @@ export default {
       })
     }
   },
-  components: { TLoading, TTable }
+  methods: {
+    addNew () {
+      this.$router.push('/teamform')
+    },
+    onRowClicked (index) {
+      this.$router.push('/teamform/' + this.teamsWithPoints[index].id)
+    }
+  },
+  components: { TPage, TTable }
 }
 
 </script>

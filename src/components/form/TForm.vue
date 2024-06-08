@@ -1,17 +1,11 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <TControl
-      v-for="control in Object.keys(formSettings)"
-      :control="control"
-      :settings="formSettings[control]"
-      @control-inputed="onControlInputed"
-      @control-blured="validate(control)"
-      :error="formErrors[control]"
-      :errorMessage="formErrorMessages[control]"
-    />
+    <TControl v-for="control in Object.keys(formSettings)" :control="control" :settings="formSettings[control]"
+      @control-inputed="onControlInputed" @control-blured="validate(control)" :error="formErrors[control]"
+      :errorMessage="formErrorMessages[control]" />
     <div>
-      <button v-if="cancelBtn" @click="$emit('cancel-clicked')" type="button">cancel</button>
-      <button>submit</button>
+      <button v-if="cancelBtn" @click="$emit('cancel-clicked')" type="button">{{ cancelBtnLabel }}</button>
+      <button>{{ submitBtnLabel }}</button>
     </div>
   </form>
 </template>
@@ -54,6 +48,7 @@ export default {
   methods: {
     onControlInputed (payload) {
       this.formData[payload.control] = payload.value
+      this.$emit('data-changed', this.formData)
     },
     onSubmit () {
       Object.keys(this.formSettings).forEach(control => {

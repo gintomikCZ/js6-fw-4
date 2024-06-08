@@ -18,6 +18,10 @@ export default {
     const dt = new Date(value)
     const today = new Date()
     return today.getTime() > dt.getTime()
+  },
+  isValidDate (value) {
+    const dt = new Date(value)
+    return dt instanceof Date && !isNaN(dt.getTime())
   }
 }
 

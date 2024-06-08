@@ -26,7 +26,11 @@ export default {
     }
   },
   created () {
-    this.value = this.settings.initialValue || ''
+    // O is falsy, '0' is truthy
+    this.value = this.settings.initialValue === 0
+      ? '' + this.settings.initialValue
+      : this.settings.initialValue || ''
+    // this.value = (this.settings.initialValue || this.settings.initalValue === 0) ? this.settings.initialValue : ''
     this.$emit('inputed', this.value)
   },
   data () {
@@ -58,15 +62,15 @@ export default {
     // if (!condition1 || !condition2) {}
 
     arrowUpClick () {
-      if (!this.settings.max || (+ this.value + this.step) <= this.settings.max) {
+      if ((!this.settings.max && this.settings.max !== 0) || (+ this.value + this.step) <= this.settings.max) {
         this.value = '' + (+ this.value + this.step)
         this.$emit('inputed', this.value)
         this.$emit('blured')
       }
     },
     arrowDownClick () {
-      if (!this.settings.min || (+ this.value - this.step) >= this.settings.min) {
-        this.value -= '' + (+ this.value - this.step)
+      if ((!this.settings.min && this.settings.min !== 0) || (+ this.value - this.step) >= this.settings.min) {
+        this.value = '' + (+ this.value - this.step)
         this.$emit('inputed', this.value)
         this.$emit('blured')
       }

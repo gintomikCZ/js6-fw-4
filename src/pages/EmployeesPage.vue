@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <!-- <div class="container">
     <h1>employees</h1>
     <button @click="addNew">add new employee</button>
   </div>
@@ -7,11 +7,15 @@
   <div class="table-container">
     <TLoading v-if="loading" />
     <TTable v-else :headers="headers" :bodyData="employeesToDisplay" @row-clicked="onRowClicked"/>
-    </div>
+    </div> -->
+  <TPage title="employees" :loading="loading">
+    <button @click="addNew">add new employee</button>
+    <TTable :headers="headers" :bodyData="employeesToDisplay" @row-clicked="onRowClicked" />
+  </TPage>
 </template>
 
 <script>
-import TLoading from '@/components/TLoading.vue'
+import TPage from '@/components/TPage.vue'
 import TTable from '@/components/TTable.vue'
 import db from '../utils/db.js'
 import { formatDate } from '@/utils/dateUtils.js'
@@ -57,7 +61,7 @@ export default {
       this.$router.push('/employeeform/' + this.employees[index].id)
     }
   },
-  components: { TTable, TLoading }
+  components: { TTable, TPage }
 }
 
 </script>

@@ -36,6 +36,26 @@ const router = createRouter({
       path: '/employeeform/:id',
       name: 'employeeFormEdit',
       component: () => import('../pages/EmployeeFormPage.vue')
+    },
+    {
+      path: '/teamform',
+      name: 'teamform',
+      component: () => import('../pages/TeamFormPage.vue')
+    },
+    {
+      path: '/teamform/:id',
+      name: 'teamformedit',
+      component: () => import('../pages/TeamFormPage.vue')
+    },
+    {
+      path: '/gameform',
+      name: 'gameform',
+      component: () => import('../pages/GameFormPage.vue')
+    },
+    {
+      path: '/gameform/:id',
+      name: 'gameformedit',
+      component: () => import('../pages/GameFormPage.vue')
     }
   ]
 })

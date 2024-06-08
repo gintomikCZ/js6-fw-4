@@ -23,6 +23,7 @@ import TInputText from '@/components/form/TInputText.vue'
 import TInputNumber from '@/components/form/TInputNumber.vue'
 import TTextarea from '@/components/form/TTextarea.vue'
 import TInputDate from '@/components/form/TInputDate.vue'
+import TSelect from '@/components/form/TSelect.vue'
 
 
 export default {
@@ -44,6 +45,7 @@ export default {
         text: 'TInputText',
         number: 'TInputNumber',
         textarea: 'TTextarea',
+        select: 'TSelect',
         date: 'TInputDate'
       }
       return obj[this.settings.type]
@@ -56,7 +58,7 @@ export default {
     },
 
   },
-  components: { TInputText, TInputNumber, TTextarea, TInputDate }
+  components: { TInputText, TInputNumber, TTextarea, TInputDate, TSelect }
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <!-- <div class="container">
     <h1>games</h1>
   </div>
 
@@ -8,13 +8,18 @@
   <div class="table-container">
     <TLoading v-if="loading" />
     <TTable v-else :headers="headers" :bodyData="gamesFormated" :footers="footers"/>
-  </div>
+  </div> -->
+
+  <TPage title="games" :loading="loading">
+    <button @click="newGame">new game</button>
+    <TTable :headers="headers" :bodyData="gamesFormated" :footers="footers" @row-clicked="onRowClicked"/>
+  </TPage>
 
 </template>
 
 <script>
 import TTable from '@/components/TTable.vue'
-import TLoading from '@/components/TLoading.vue'
+import TPage from '@/components/TPage.vue'
 import db from '@/utils/db.js'
 import { formatDate } from '@/utils/dateUtils.js'
 
@@ -128,17 +133,17 @@ export default {
       return [{ label: 'total games played', colspan: 3 }, { label: this.numberOfGames, align: 'center' }]
     }
   },
-  components: { TTable, TLoading }
+  methods: {
+    newGame () {
+      this.$router.push('/gameform')
+    },
+    onRowClicked (index) {
+      this.$router.push('/gameform/' + this.games[index].id)
+    }
+  },
+  components: { TTable, TPage }
 }
 
 </script>
 
 
-<style lang="stylus" scoped>
-.container
-  padding: 1rem 2rem
-.table-container
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-</style>
