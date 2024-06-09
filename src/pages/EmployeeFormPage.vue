@@ -4,7 +4,7 @@
     <TLoading v-if="loading"></TLoading>
     <TForm v-else :formSettings="formSettings" @submited="onSubmited"/>
   </div> -->
-  <TPage :title="$route.params.id ? 'edit employee' : 'add employee'" :loading="loading">
+  <TPage :title="$route.params.id ? 'edit employee' : 'add employee'">
     <TForm :formSettings="formSettings" @submited="onSubmited" />
   </TPage>
 </template>
@@ -54,21 +54,25 @@ export default {
             { rule: 'isPast', message: 'the date must be in past' }
           ]
         }
-      },
-      loading: true
+      }
     }
   },
   created () {
     if (!this.$route.params.id) {
-      this.loading = false
+      this.$store.commit('switchLoading', false)
       return
     }
-    db.get('employees/' + this.$route.params.id).then(record => {
+    this.$store.dispatch('fetchOneEmployee', this.$route.params.id).then(() => {
       Object.keys(this.formSettings).forEach(control => {
+        const record = this.$store.state.employee
         this.formSettings[control].initialValue = record[control]
       })
-      this.loading = false
+      this.$store.commit('switchLoading', false)
     })
+    // db.get('employees/' + this.$route.params.id).then(record => {
+    //   Object.keys(this.formSettings).forEach(control => {
+    //     this.formSettings[control].initialValue = record[control]
+    //   })
   },
   methods: {
     onSubmited(data) {

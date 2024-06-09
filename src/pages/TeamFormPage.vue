@@ -1,5 +1,5 @@
 <template>
-  <TPage :title="$route.params.id ? 'edit employee' : 'add employee'" :loading="loading">
+  <TPage :title="$route.params.id ? 'edit employee' : 'add employee'">
     <TForm :formSettings="formSettings" @submited="onSubmited" cancelBtn @cancel-clicked="onCancelClicked"/>
   </TPage>
 </template>
@@ -35,8 +35,7 @@ export default {
             { rule: 'required', message: 'this field is required' }
           ]
         },
-      },
-      loading: true
+      }
     }
   },
   computed: {
@@ -46,14 +45,14 @@ export default {
   },
   created () {
     if (this.mode === 'add') {
-      this.loading = false
+      this.$store.commit('switchLoading', false)
       return
     }
     db.get('teams/' + this.$route.params.id).then((teamObj) => {
       Object.keys(this.formSettings).forEach(element => {
         this.formSettings[element].initialValue = teamObj[element]
       })
-      this.loading = false
+      this.$store.commit('switchLoading', false)
     })
   },
   methods: {

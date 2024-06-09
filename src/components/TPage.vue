@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-container">
     <div class="container">
       <h1>{{ title }}</h1>
     </div>
@@ -19,8 +19,12 @@ import TLoading from '@/components/TLoading.vue'
 export default {
   name: 'TPage',
   props: {
-    title: String,
-    loading: Boolean
+    title: String
+  },
+  computed: {
+    loading () {
+      return this.$store.state.loading
+    }
   },
   components: {TLoading}
 }
@@ -38,4 +42,6 @@ export default {
   align-items: center;
   gap: 1rem;
   margin-top: 2rem;
+.page-container
+  margin-bottom: 2rem
 </style>

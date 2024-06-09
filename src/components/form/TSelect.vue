@@ -20,7 +20,7 @@
     {{ option.label }}
     </option>
   </select> -->
-  <div class="select-container" :id="control + 'container'">
+  <div class="select-container" ref="container">
     <input :id="control" type="text" :autocomplete="settings.autocomplete || 'off'"
       :placeholder="settings.placeholder || ''" :autofocus="settings.autofocus || false"
       :disabled="settings.disabled || false" :readonly="settings.readonly || false"
@@ -55,6 +55,9 @@ export default {
     this.$emit('inputed', this.value)
     document.addEventListener('click', this.onDocClick)
   },
+  mounted () {
+    console.log(window)
+  },
   beforeUnmount () {
     document.removeEventListener('click', this.onDocClick)
   },
@@ -65,16 +68,17 @@ export default {
       showOptions: false
     }
   },
+
   methods: {
     onDocClick (event) {
-      const container = document.getElementById(this.control + 'container')
+      const container = this.$refs.container
       if (container && !container.contains(event.target)) {
         this.showOptions = false
       }
     },
     onBlur (e) {
-      const ul = document.getElementById(this.control + 'container')
-      if (!ul.contains(e.target)) {
+      const container = this.$refs.container
+      if (!container.contains(e.target)) {
         this.showOptions = false
       }
     },

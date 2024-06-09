@@ -2,12 +2,18 @@
   <TNavBar :links="links"/>
 
   <RouterView />
+
 </template>
 
 <script>
 import TNavBar from '@/components/TNavBar.vue'
 export default {
   name: 'App',
+  // computed: {
+  //   loading() {
+  //     return this.$store.state.loading
+  //   }
+  // },
   data () {
     return {
       links: [
@@ -18,6 +24,11 @@ export default {
       ]
     }
   },
+  // watch: {
+  //   loading (nv, ov) {
+  //     console.log('changed from ' + ov + ' to ' + nv)
+  //   }
+  // },
   components: { TNavBar }
 }
 

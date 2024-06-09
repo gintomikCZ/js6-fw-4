@@ -8,7 +8,7 @@
     <TLoading v-if="loading" />
     <TTable v-else :headers="headers" :bodyData="employeesToDisplay" @row-clicked="onRowClicked"/>
     </div> -->
-  <TPage title="employees" :loading="loading">
+  <TPage title="employees">
     <button @click="addNew">add new employee</button>
     <TTable :headers="headers" :bodyData="employeesToDisplay" @row-clicked="onRowClicked" />
   </TPage>
@@ -27,19 +27,17 @@ import { formatDate } from '@/utils/dateUtils.js'
 export default {
   name: 'EmployeesPage',
   created () {
-    db.get('employees').then(employees => {
-      this.employees = employees
-      this.loading = false
-    })
+    this.$store.dispatch('fetchEmployees')
   },
   data () {
     return {
-      loading: true,
-      employees: null,
       headers: ['name', 'position', 'dateOfBirth', {label: 'salary', align: 'right'}]
     }
   },
   computed: {
+    employees () {
+      return this.$store.state.employees
+    },
     employeesToDisplay() {
       return !this.employees
         ? []

@@ -11,6 +11,7 @@ const checkUrl = (url) => {
 
 export default {
   get (path) {
+    console.log('db is loading data')
     return axios({
       method: 'get',
       url: checkUrl(path),

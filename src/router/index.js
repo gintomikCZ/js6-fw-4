@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
+import store from '../store/index.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,11 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomePage
+      component: HomePage,
+      // beforeEnter: (to, from) => {
+      //   // analýza, výpočet
+      //   return false
+      // }
     },
     {
       path: '/table',
@@ -58,6 +63,10 @@ const router = createRouter({
       component: () => import('../pages/GameFormPage.vue')
     }
   ]
+})
+
+router.beforeEach((to, from) => {
+  store.commit('switchLoading', true)
 })
 
 export default router

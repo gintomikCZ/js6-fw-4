@@ -1,5 +1,5 @@
 <template>
-  <TPage :title="$route.params.id ? 'edit game' : 'add game'" :loading="loading">
+  <TPage :title="$route.params.id ? 'edit game' : 'add game'">
     <TForm :formSettings="formSettings" @submited="onSubmited" cancelBtn @cancel-clicked="onCancelClicked"
     @data-changed="onDataChanged"/>
   </TPage>
@@ -45,12 +45,11 @@ export default {
       )
     }
     Promise.all(promises).then(() => {
-      this.loading = false
+      this.$store.commit('switchLoading', false)
     })
   },
   data () {
     return {
-      loading: true,
       formSettings: {
         date: {
           type: 'date',

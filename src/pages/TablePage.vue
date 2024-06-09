@@ -7,7 +7,7 @@
     <TLoading v-if="loading" />
     <TTable v-else :headers="headers" :bodyData="teamsCalculated" />
   </div> -->
-  <TPage title="table" :loading="loading">
+  <TPage title="table">
     <button @click="addNew">add new team</button>
     <TTable :headers="headers" :bodyData="teamsCalculated" @row-clicked="onRowClicked"/>
   </TPage>
@@ -32,12 +32,11 @@ export default {
       .then((resultsArray) => {
         this.teams = resultsArray[0]
         this.games = resultsArray[1]
-        this.loading = false
+        this.$store.commit('switchLoading', false)
       })
   },
   data () {
     return {
-      loading: true,
       teams: null,
       games: null,
       headers: ['standing', 'team', 'games', 'points', 'score']
