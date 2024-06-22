@@ -1,4 +1,6 @@
 import axios from 'axios'
+import store from '../store/index.js'
+import router from '../router/index.js'
 
 axios.defaults.baseURL = 'https://sdaapi.glabazna.eu'
 axios.defaults.headers.common['Content-Type'] = 'application/json'
@@ -11,16 +13,22 @@ const checkUrl = (url) => {
 
 export default {
   get (path) {
-    console.log('db is loading data')
     return axios({
       method: 'get',
       url: checkUrl(path),
     }).then((response) => {
       return response.data.data
     }).catch((error) => {
-      console.error(error)
+      console.log(error.response.status)
+      let msg = error.response.status === 404
+        ? 'the record has not been found'
+        : 'something went wrong'
+      store.commit('setErrorMsg', msg)
+      router.push('/error')
     })
   },
+
+
 
   post (path, body) {
     return axios({
@@ -30,7 +38,8 @@ export default {
     }).then((response) => {
       return response.data.data
     }).catch((error) => {
-      console.error(error)
+      store.commit('setErrorMsg', 'some error happened when saving record')
+      router.push('/error')
     })
   },
   put (path, body) {
@@ -41,7 +50,8 @@ export default {
     }).then((response) => {
       return response.data.data
     }).catch((error) => {
-      console.error(error)
+      store.commit('setErrorMsg', 'some error happened when editing record')
+      router.push('/error')
     })
   },
   delete (path, body) {
@@ -52,7 +62,8 @@ export default {
     }).then((response) => {
       return response.data.data
     }).catch((error) => {
-      console.error(error)
+      store.commit('setErrorMsg', 'some error happened when deleting record')
+      router.push('/error')
     })
   }
 

@@ -61,7 +61,20 @@ const router = createRouter({
       path: '/gameform/:id',
       name: 'gameformedit',
       component: () => import('../pages/GameFormPage.vue')
-    }
+    },
+    {
+      path: '/error',
+      name: 'error',
+      component: () => import('../pages/ErrorPage.vue')
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      beforeEnter () {
+        store.commit('setErrorMsg', '404 - this page is not available on the site')
+      },
+      component: () => import('../pages/ErrorPage.vue')
+    },
   ]
 })
 

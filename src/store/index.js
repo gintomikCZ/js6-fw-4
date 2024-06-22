@@ -5,7 +5,9 @@ const store = createStore({
   state: {
     loading: true,
     employees: null,
-    employee: null
+    employee: null,
+    error: false,
+    errorMsg: ''
   },
   mutations: {
     switchLoading(state, value) {
@@ -18,11 +20,17 @@ const store = createStore({
     },
     setEmployee(state, value) {
       state.employee = value
+    },
+    setError (state, value) {
+      state.error = value
+    },
+    setErrorMsg (state, value) {
+      state.errorMsg = value
     }
   },
   actions: {
     fetchEmployees (context) {
-     return db.get('employees').then((employees) => {
+      return db.get('employees').then((employees) => {
         context.commit('setEmployees', employees)
         context.commit('switchLoading', false)
       })

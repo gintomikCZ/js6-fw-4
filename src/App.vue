@@ -1,18 +1,27 @@
 <template>
   <TNavBar :links="links"/>
-
-  <RouterView />
-
+  <ErrorPage v-if="error" />
+  <RouterView v-else />
 </template>
 
 <script>
 import TNavBar from '@/components/TNavBar.vue'
+import ErrorPage from '@/pages/ErrorPage.vue'
 export default {
   name: 'App',
   // computed: {
   //   loading() {
   //     return this.$store.state.loading
   //   }
+  // },
+  computed: {
+    error () {
+      return this.$store.state.error
+    }
+  },
+  // created () {
+  //   const obj = null
+  //   console.log(obj.ahoj)
   // },
   data () {
     return {
@@ -29,7 +38,7 @@ export default {
   //     console.log('changed from ' + ov + ' to ' + nv)
   //   }
   // },
-  components: { TNavBar }
+  components: { TNavBar, ErrorPage }
 }
 
 </script>

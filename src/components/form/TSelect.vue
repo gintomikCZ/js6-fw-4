@@ -55,9 +55,6 @@ export default {
     this.$emit('inputed', this.value)
     document.addEventListener('click', this.onDocClick)
   },
-  mounted () {
-    console.log(window)
-  },
   beforeUnmount () {
     document.removeEventListener('click', this.onDocClick)
   },
