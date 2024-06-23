@@ -10,11 +10,10 @@
 
 </template>
 
-<script>
-
-export default {
-  name: 'TTableCell',
-  props: {
+<script setup>
+// COMPOSITION API
+import { ref, computed } from 'vue'
+  const props = defineProps ({
     isHeader: Boolean,
     label: String,
     colspan: Number,
@@ -22,36 +21,26 @@ export default {
     cellId: {
       validator: (v) => Array.isArray(v) || !v
     }
-  },
-  data () {
-    return {
-      showContent: false
+  })
+  const showContent = ref(false)
+
+  const classArray = computed(() => {
+    const ar = ['text-' + props.align]
+    if (props.cellId) {
+      ar.push('cursor-pointer')
     }
-  },
-  computed: {
-    classArray () {
-      const ar = ['text-' + this.align]
-      if (this.cellId) {
-        ar.push('cursor-pointer')
-      }
-      return ar
-    }
-  },
-  methods: {
-    onMouseenter() {
-      if (!this.cellId) {
-        return
-      }
-      this.showContent = true
-    },
-    onMouseleave () {
-      if (!this.cellId) {
-        return
-      }
-      this.showContent = false
+    return ar
+  })
+  function onMouseenter() {
+    if (props.cellId) {
+      showContent.value = true
     }
   }
-}
+  function onMouseleave () {
+    if (props.cellId) {
+      showContent.value = false
+    }
+  }
 
 </script>
 

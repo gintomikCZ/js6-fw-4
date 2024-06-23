@@ -38,11 +38,11 @@
   </tr>
 </template>
 
-<script>
+<script setup>
+// COMPOSITION API
 import TTableCell from '@/components/TTableCell.vue'
-export default {
-  name: 'TTableRow',
-  props: {
+
+  defineProps({
     items: {
       type: Array
     },
@@ -50,10 +50,7 @@ export default {
       type: Boolean,
       default: false
     }
-  },
-  components: { TTableCell }
-}
-
+  })
 
 </script>
 

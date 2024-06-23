@@ -13,11 +13,11 @@
   </table>
 </template>
 
-<script>
+<script setup>
+// COMPOSITION API
 import TTableRow from '@/components/TTableRow.vue'
-export default {
-  name: 'TTable',
-  props: {
+
+  const props = defineProps({
     headers: {
       type: Array
     },
@@ -28,10 +28,7 @@ export default {
       type: Array,
       default: () => []
     }
-  },
-
-  components: { TTableRow }
-}
+  })
 </script>
 
 <style lang="stylus" scoped>
